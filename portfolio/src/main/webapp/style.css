@@ -108,11 +108,23 @@ header #logo {
         "one six three seven"
         "eight six ten five"
         "eight nine eleven five";
-        grid-gap: 8px;
+    grid-gap: 8px;
 }
 
 #gallery img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+footer {
+    background-color: #007F93;
+}
+
+footer #copyright {
+    color: #fff;
+    text-align: center;
+    margin: 15px 0 0;
+    padding: 15px 0;
+    font-size: 1.1rem;
 }

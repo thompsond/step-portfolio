@@ -22,6 +22,6 @@ $(document).ready(function() {
 
     let $height = $("header").outerHeight(true);
 
-    $("#main-container").css("margin-top", `${$height + 18 + "px"}`);
+    $("#main-container").css("margin-top", `${$height + 20 + "px"}`);
 
 });
