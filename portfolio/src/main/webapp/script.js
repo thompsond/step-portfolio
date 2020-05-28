@@ -20,4 +20,8 @@ $(document).ready(function() {
     let year = date.getFullYear();
     $("#copyright").html(`&copy; ${year} Darren Thompson`);
 
+    let $height = $("header").outerHeight(true);
+
+    $("#main-container").css("margin-top", `${$height + 18 + "px"}`);
+
 });
