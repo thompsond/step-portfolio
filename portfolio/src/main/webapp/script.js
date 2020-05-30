@@ -22,7 +22,21 @@ $(document).ready(function() {
 
     let $height = $("header").outerHeight(true);
 
-    $("#main-container").css("margin-top", `${$height + 20 + "px"}`);
+    $("#main-container").css("margin-top", `${$height + 30 + "px"}`);
+
+    let threshold = $(document).height() * 0.1;
+    let didShowDialog = false;
+
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() > $(document).height() - threshold && !didShowDialog) {
+            $("#dialog").show();
+            didShowDialog = true;
+        }
+    });
+
+    $("#message a").click(function(event) {
+        $("#dialog").hide();
+    });
 
 });
 
