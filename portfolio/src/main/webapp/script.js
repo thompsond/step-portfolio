@@ -42,9 +42,17 @@ $(document).ready(function() {
         }
     });
 
-    // Hide the dialog window when the website link is clicked
-    $("#message a").click(function(event) {
-        $("#dialog").hide();
+    // Hide the dialog window when the user clicks the link or clicks outside of the dialog
+    $("#dialog").click(function(event) {
+        if(event.target.id !== "message") {
+            $(this).hide();
+        }
+    });
+
+
+    // Test Fetch
+    $("#comment-test button").click(function() {
+        fetch('/data').then(response => response.text()).then((msg) => { $("#comment-test").append(msg); });
     });
 
 });
