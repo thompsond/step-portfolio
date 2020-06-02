@@ -147,6 +147,16 @@ header #logo {
     transform: translate(-50%, -100%);
 }
 
+#comment-container {
+    margin: 30px 20px;
+}
+
+#comment-container textarea {
+    width: 400px;
+    height: 60px;
+    border-radius: 3px;
+}
+
 footer {
     background-color: #007F93;
 }

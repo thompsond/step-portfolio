@@ -25,7 +25,6 @@ $(document).ready(function() {
     let $height = $("header").outerHeight(true);
     $("#main-container").css("margin-top", `${$height + 30 + "px"}`);
 
-
     // Calculate the threshold for the scroll dialog
     let threshold = $(document).height() * 0.1;
     let didShowDialog = false;
@@ -48,15 +47,14 @@ $(document).ready(function() {
         }
     });
 
-
-    // Test Fetch
-    $("#comment-test button").click(function() {
-        fetch('/data').then(response => response.text()).then((msg) => { 
-            msg = JSON.parse(msg);
-            for(m in msg) {
-                $("#comment-test").append(`<p>${msg[m].message}</p>`);
+    // Comments fetch
+    fetch('/data').then(response => response.json()).then(data => {
+        if(data !== "[]") {
+            for(index in data) {
+                let comment = data[index].message;
+                $("#comment-section").append(`<p class="comment">${comment}</p>`);
             }
-        });
+        }
     });
 
 });
