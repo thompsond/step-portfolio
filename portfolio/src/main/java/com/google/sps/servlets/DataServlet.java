@@ -24,22 +24,29 @@ import java.util.ArrayList;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    ArrayList<String> messages;
-    
+    ArrayList<String> messages = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    messages = new ArrayList<>();
-    messages.add("Hello!");
-    messages.add("Welcome!");
-    messages.add("Let's get started!");
+
     response.setContentType("application/json;");
     String json = "[";
     for(String msg : messages) {
         json += "{\"message\": \"" + msg + "\"},"; 
     }
+
     json = json.substring(0, json.length() - 1);
     json += "]";
     response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException { 
+      String comment = request.getParameter("comment");
+      if(!comment.trim().equals("")) {
+          messages.add(comment);
+      }
+      response.setContentType("text/html");
+      response.sendRedirect("/index.html");
   }
 }
