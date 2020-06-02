@@ -13,7 +13,6 @@
 // limitations under the License.
 
 
-
 $(document).ready(function() {
 
     // Create the text for the copyright information
@@ -52,8 +51,12 @@ $(document).ready(function() {
 
     // Test Fetch
     $("#comment-test button").click(function() {
-        fetch('/data').then(response => response.text()).then((msg) => { $("#comment-test").append(msg); });
+        fetch('/data').then(response => response.text()).then((msg) => { 
+            msg = JSON.parse(msg);
+            for(m in msg) {
+                $("#comment-test").append(`<p>${msg[m].message}</p>`);
+            }
+        });
     });
 
 });
-
