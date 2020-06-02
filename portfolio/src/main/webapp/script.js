@@ -28,7 +28,6 @@ $(document).ready(function() {
     // Calculate the threshold for the scroll dialog
     let threshold = $(document).height() * 0.1;
     let didShowDialog = false;
-    
 
     // When the user crosses the specified threshold
     // show a dialog with a link to my personal site. 
@@ -47,7 +46,6 @@ $(document).ready(function() {
             $(this).hide();
         }
     });
-
 
     // Comments fetch
     fetch('/data').then(response => response.json()).then(data => {
