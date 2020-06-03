@@ -20,31 +20,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    ArrayList<String> messages = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    response.setContentType("application/json;");
+    Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
     String json = "[";
-    for(String msg : messages) {
-        json += "{\"message\": \"" + msg + "\"},"; 
+    for(Entity comment : results.asIterable()) {
+        json += "{\"message\": \"" + comment.getProperty("message") + "\"},"; 
     }
 
     json = json.substring(0, json.length() - 1);
     json += "]";
+    response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException { 
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       String comment = request.getParameter("comment");
       if(!comment.trim().equals("")) {
-          messages.add(comment);
+          Entity commentEntity = new Entity("Comment");
+          commentEntity.setProperty("message", comment);
+          commentEntity.setProperty("time", System.currentTimeMillis());
+          DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+          datastore.put(commentEntity);
       }
       response.setContentType("text/html");
       response.sendRedirect("/index.html");
