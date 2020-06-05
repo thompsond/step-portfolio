@@ -45,15 +45,37 @@ $(document).ready(function() {
         }
     });
 
+    // Helper function to create a new page and link for comments
+    function createNewPage(pageNumber) {
+        let id = `page${pageNumber}`;
+        // Add the page to the DOM
+        $("#comment-section").append(`<div id="${id}" class="page"></div>`);
+        // Add the page number to the DOM
+        $("#page-number-container").append(`<a href="#${id}" class="page-number">${pageNumber}</a>`);
+    }
+
     function getComments() {
-        let $max = $("#comment-range-select").val();
-        fetch(`/data?comment_max=${$max}`).then(response => response.json()).then(data => {
+        let $max = parseInt($("#comment-range-select").val());
+        fetch(`/data`).then(response => response.json()).then(data => {
             $("#comment-section").empty();
+            $("#page-number-container").empty();
             if(data.length !== 0) {
+                let currentPageCount = 1;
+                let numOfCommentsOnCurrentPage = 0;
+                createNewPage(currentPageCount);
                 for(index in data) {
+                    // Limit each page to the number of comments specified by the user
+                    if(numOfCommentsOnCurrentPage === $max) {
+                        createNewPage(++currentPageCount);
+                        numOfCommentsOnCurrentPage = 0;
+                    }
                     let comment = data[index].message;
-                    $("#comment-section").append(`<p class="comment">${comment}</p>`);
+                    // Add the current comment to the current page
+                    $(`div#page${currentPageCount}`).append(`<p class="comment">${comment}</p>`);
+                    numOfCommentsOnCurrentPage++;
                 }
+                // Select the first page
+                $(".page-number[href='#page1']").addClass("selected").click();
             }
         });
     }
@@ -69,6 +91,17 @@ $(document).ready(function() {
     $("#delete-comments-btn").click(function(event) {
         const request = new Request('/delete-data', { method: "POST" });
         fetch(request);
-        setTimeout(() => { getComments(); }, 300);
+        setTimeout(() => { getComments(); }, 1700);
+    });
+
+    // Show the corresponding page when a page number is clicked
+    $("#page-number-container").on("click", ".page-number", function(event) {
+        event.preventDefault();
+        // Hide all of the pages
+        $(".page").hide();
+        $(".page-number").removeClass("selected");
+        let $page = $(this).attr("href");
+        $(`${$page}`).show();
+        $(this).addClass("selected");
     });
 });

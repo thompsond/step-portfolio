@@ -162,6 +162,30 @@ header #logo {
     letter-spacing: 0.8px;
 }
 
+.page {
+    display: none;
+}
+
+.page:first-child {
+    display: block;
+}
+
+#page-number-container {
+    margin: 10px auto;
+    text-align: center;
+}
+
+.page-number {
+    display: inline-block;
+    margin: 0 3px;
+    font-size: 1.2rem;
+}
+
+.page-number.selected {
+    color: black;
+    text-decoration: none;
+}
+
 footer {
     background-color: #007F93;
 }
