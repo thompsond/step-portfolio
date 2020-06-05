@@ -27,7 +27,7 @@ import com.google.appengine.api.datastore.Query;
 
 @WebServlet("/delete-data")
 public class DeleteServlet extends HttpServlet {
-
+  // Remove each comment from the datastore using its unique key
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
