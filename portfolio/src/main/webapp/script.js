@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 $(document).ready(function() {
-
     // Create the text for the copyright information
     let date = new Date();
     let year = date.getFullYear();
@@ -47,14 +45,30 @@ $(document).ready(function() {
         }
     });
 
-    // Comments fetch
-    fetch('/data').then(response => response.json()).then(data => {
-        if(data !== "[]") {
-            for(index in data) {
-                let comment = data[index].message;
-                $("#comment-section").append(`<p class="comment">${comment}</p>`);
+    function getComments() {
+        let $max = $("#comment-range-select").val();
+        fetch(`/data?comment_max=${$max}`).then(response => response.json()).then(data => {
+            $("#comment-section").empty();
+            if(data.length !== 0) {
+                for(index in data) {
+                    let comment = data[index].message;
+                    $("#comment-section").append(`<p class="comment">${comment}</p>`);
+                }
             }
-        }
+        });
+    }
+
+    // Get comments on load
+    getComments();
+    
+    // Get comments when the selected option changes
+    $("#comment-range-select").change(function(event) {
+        getComments();
     });
 
+    $("#delete-comments-btn").click(function(event) {
+        const request = new Request('/delete-data', { method: "POST" });
+        fetch(request);
+        setTimeout(() => { getComments(); }, 300);
+    });
 });

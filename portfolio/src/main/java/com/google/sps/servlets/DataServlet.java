@@ -39,13 +39,14 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
     Gson gson = new Gson();
-    StringBuilder json = new StringBuilder();
     List<Comment> comments = new ArrayList<>();
+    int maxComments = Integer.parseInt(request.getParameter("comment_max"));
     for(Entity cmt : results.asIterable()) {
+        if(comments.size() == maxComments) break;
         Comment comment = new Comment(cmt.getProperty("message").toString(), Long.parseLong(cmt.getProperty("time").toString()));
         comments.add(comment);
     }
-    json.append(gson.toJson(comments));
+    String json = gson.toJson(comments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }

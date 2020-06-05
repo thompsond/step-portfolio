@@ -157,6 +157,11 @@ header #logo {
     border-radius: 3px;
 }
 
+.comment {
+    font-family: 'Oswald', Arial, sans-serif;
+    letter-spacing: 0.8px;
+}
+
 footer {
     background-color: #007F93;
 }
