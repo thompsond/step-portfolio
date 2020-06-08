@@ -104,4 +104,9 @@ $(document).ready(function() {
         $(`${$page}`).show();
         $(this).addClass("selected");
     });
+
+    // Create map
+    const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 38.8912936, lng: -77.0288036}, zoom: 17, mapTypeId: 'satellite'});
 });

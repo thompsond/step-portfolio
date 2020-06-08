@@ -186,6 +186,13 @@ header #logo {
     text-decoration: none;
 }
 
+#map {
+    width: 500px;
+    height: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 footer {
     background-color: #007F93;
 }
