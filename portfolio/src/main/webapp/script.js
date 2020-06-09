@@ -128,6 +128,19 @@ $(document).ready(function() {
         title: "Studio Movie Grill"
     });
 
+    var infowindow = new google.maps.InfoWindow({
+        content: `<p>SMG Marietta is located off of Powers Ferry Road Southeast and Roswell Road in Marietta, Georgia. 
+            This location will feature 1,285 luxury lounge chairs and recliners in 11 auditoriums outfitted with the latest digital projection, 
+            Dolby 3D, Q-SYS custom sound systems, 
+            as well as a full-service bar and lounge and made-to-order American Grill menu.
+            The SMG Marietta box office opens one hour before the first scheduled movie of the 
+            day and closes 15 minutes after the start of the last scheduled showtime.</p>`
+    });
+
+    movieTheater.addListener('click', function() {
+        infowindow.open(map, movieTheater);
+    });
+
     let waffleHouse = new google.maps.Marker({
         map: map,
         position: { lat: 33.998205, lng: -84.529485 },
