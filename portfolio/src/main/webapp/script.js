@@ -112,8 +112,8 @@ $(document).ready(function() {
 
     let schoolMarker = new google.maps.Marker({
         map: map,
-        position: { lat: 34.038090, lng: -84.583095 },
-        title: "Kennesaw State University"
+        position: { lat: 34.017780, lng: -84.564023},
+        title: "Town Center Mall"
     });
 
     let kennesawMountain = new google.maps.Marker({
@@ -145,5 +145,19 @@ $(document).ready(function() {
         map: map,
         position: { lat: 33.998205, lng: -84.529485 },
         title: "Waffle House"
+    });
+
+    // Get the other markers from the server
+    fetch("/add-markers").then(response => response.json()).then(data => {
+        for(index in data) {
+            new google.maps.Marker({
+                map: map,
+                position: { 
+                    lat: data[index].latitude,
+                    lng: data[index].longitude
+                },
+                title: data[index].title
+            });
+        }
     });
 });
