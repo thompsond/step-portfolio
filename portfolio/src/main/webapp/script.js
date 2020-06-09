@@ -108,5 +108,29 @@ $(document).ready(function() {
     // Create map
     const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: {lat: 38.8912936, lng: -77.0288036}, zoom: 17, mapTypeId: 'satellite'});
+      { center: { lat: 33.998897, lng: -84.543732 }, zoom: 12, mapTypeId: 'satellite' });
+
+    let schoolMarker = new google.maps.Marker({
+        map: map,
+        position: { lat: 34.038090, lng: -84.583095 },
+        title: "Kennesaw State University"
+    });
+
+    let kennesawMountain = new google.maps.Marker({
+        map: map,
+        position: { lat: 33.971292, lng: -84.582371 },
+        title: "Kennesaw Mountain"
+    });
+
+    let movieTheater = new google.maps.Marker({
+        map: map,
+        position: { lat: 33.948931, lng: -84.514641 },
+        title: "Studio Movie Grill"
+    });
+
+    let waffleHouse = new google.maps.Marker({
+        map: map,
+        position: { lat: 33.998205, lng: -84.529485 },
+        title: "Waffle House"
+    });
 });
