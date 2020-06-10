@@ -108,11 +108,11 @@ $(document).ready(function() {
     // Create map
     const map = new google.maps.Map(
       document.getElementById('map'),
-      { center: { lat: 33.998897, lng: -84.543732 }, zoom: 12, mapTypeId: 'satellite' });
+      { center: { lat: 33.988897, lng: -84.539020 }, zoom: 12, mapTypeId: 'satellite' });
 
     let schoolMarker = new google.maps.Marker({
         map: map,
-        position: { lat: 34.017780, lng: -84.564023},
+        position: { lat: 34.017780, lng: -84.564023 },
         title: "Town Center Mall"
     });
 
@@ -159,5 +159,35 @@ $(document).ready(function() {
                 title: data[index].title
             });
         }
+    });
+
+    // Create polygon with some of the marker coordinates
+    let polygonCoords = [
+        { lat: 34.017780, lng: -84.564023 },
+        { lat: 33.971292, lng: -84.582371 },
+        { lat: 33.952719, lng: -84.549583 },
+        { lat: 33.998205, lng: -84.529485 }
+    ];
+
+    let polygon = new google.maps.Polygon({
+        paths: polygonCoords,
+        strokeColor: '#72B332',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#72B332',
+        fillOpacity: 0.35,
+        map: map
+    });
+
+    // Add circle
+    let cityCircle = new google.maps.Circle({
+      strokeColor: '#3232B3',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#3232B3',
+      fillOpacity: 0.35,
+      map: map,
+      center: { lat: 33.948931, lng: -84.514641 },
+      radius: 2800
     });
 });
