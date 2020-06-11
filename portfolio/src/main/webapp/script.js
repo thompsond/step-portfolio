@@ -190,4 +190,9 @@ $(document).ready(function() {
       center: { lat: 33.948931, lng: -84.514641 },
       radius: 2800
     });
+
+    // Get Blobstore URL
+    fetch("/blobstore-upload-url").then(response => response.text()).then(uploadURL => {
+        $("#comment-form").attr("action", uploadURL);
+    });
 });
