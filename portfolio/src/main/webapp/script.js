@@ -70,8 +70,10 @@ $(document).ready(function() {
                         numOfCommentsOnCurrentPage = 0;
                     }
                     let comment = data[index].message;
+                    let imageUrl = data[index].imageUrl;
                     // Add the current comment to the current page
                     $(`div#page${currentPageCount}`).append(`<p class="comment">${comment}</p>`);
+                    if(imageUrl !== "") $(`div#page${currentPageCount}`).append(`<img src="${imageUrl}" class="comment-pic">`);
                     numOfCommentsOnCurrentPage++;
                 }
                 // Select the first page
