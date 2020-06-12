@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
+// This class creates the URL that will be placed in the form's "action" attribute
 @WebServlet("/blobstore-upload-url")
 public class BlobstoreURL extends HttpServlet {
   @Override

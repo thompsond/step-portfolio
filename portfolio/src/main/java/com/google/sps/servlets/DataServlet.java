@@ -116,6 +116,8 @@ public class DataServlet extends HttpServlet {
   }
 }
 
+// This class represents a comment from the user
+// It may contain a URL to an image
 class Comment {
     private String message;
     private long timestamp;
